@@ -1,0 +1,198 @@
+/* ============================================================
+   CLASE 3 - DEMO 2: SOMBRAS Y TRANSICIONES
+   ============================================================ */
+
+body {
+    margin: 0;
+    background-color: lightgray;
+    font-family: system-ui, sans-serif;
+}
+
+/* Flex en columna para apilar la tarjeta y el boton centrados */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+}
+
+
+/* ------------------------------------------------------------
+   BOX-SHADOW
+   ------------------------------------------------------------
+   Sintaxis:
+       box-shadow: [inset] desplazX desplazY desenfoque expansion color;
+
+     desplazX / desplazY -> hacia donde cae la sombra
+     desenfoque (blur)   -> 0 = borde duro, mas alto = mas difusa
+     expansion (spread)  -> agranda o achica la sombra (opcional)
+     inset               -> la dibuja hacia ADENTRO en vez de afuera
+
+   Truco profesional: en vez de UNA sombra grande, se apilan
+   VARIAS separadas por coma, cada una mas grande y mas
+   transparente. Eso imita como se comporta la luz real y da
+   una sombra mucho mas natural. Es lo que hacemos aca abajo.
+
+   rgba(0,0,0,0.5) = negro con 50% de opacidad. Se usa negro
+   transparente en vez de gris para que la sombra funcione
+   sobre cualquier color de fondo.
+   ------------------------------------------------------------ */
+section {
+    /* clamp(minimo, ideal, maximo): lo vemos en detalle en la
+       demo 03 de responsive. Aca hace que el texto acompane el
+       tamano de la pantalla sin pasarse de chico ni de grande. */
+    font-size: clamp(1rem, 6vw, 2.5rem);
+
+    color: lightgrey;
+    width: clamp(200px, 75vh, 3000px);
+    height: 500px;
+    background-color: white;
+    border: 2px black solid;
+
+    /* border-radius redondea las esquinas.
+       50% en un cuadrado da un circulo perfecto. */
+    border-radius: 5px;
+    margin-top: 5%;
+
+    /* Tres sombras apiladas: cada una cae mas lejos, se
+       desenfoca mas y es mas transparente. */
+    box-shadow:
+        0  5px  5px rgba(0, 0, 0, 0.5),
+        0 10px 10px rgba(0, 0, 0, 0.3),
+        0 15px 15px rgba(0, 0, 0, 0.1);
+
+    /* text-shadow es igual pero sin spread ni inset:
+       desplazX desplazY desenfoque color */
+    text-shadow: 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ------------------------------------------------------------
+   TRANSITION
+   ------------------------------------------------------------
+   Sintaxis:
+       transition: propiedad duracion curva retardo;
+
+   Se puede animar mas de una propiedad separandolas por coma.
+   Regla de oro: NO uses transition: all. Le pedis al navegador
+   que vigile todas las propiedades y ademas te podes comer
+   animaciones que no querias. Listalas explicitamente.
+
+   La CURVA (timing function) define el ritmo:
+       linear              -> velocidad constante, se siente robotico
+       ease                -> por defecto, arranca y frena suave
+       ease-out            -> arranca rapido y frena: el mas usado
+                              para cosas que ENTRAN o responden al mouse
+       cubic-bezier(...)   -> curva a medida. La de abajo tiene un
+                              pequeno rebote al final.
+
+   IMPORTANTISIMO: la transition va en el ESTADO NORMAL, no en
+   el :hover. Si la ponemos solo en el :hover, la animacion se
+   ve al entrar pero al salir el elemento vuelve de golpe.
+
+   Duraciones: entre 150ms y 300ms se siente natural. Arriba de
+   500ms el usuario siente que la interfaz esta lenta.
+   ------------------------------------------------------------ */
+button {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;   /* circulo */
+    border: none;
+    background-color: white;
+    cursor: pointer;       /* el mouse pasa a ser la manito */
+
+    transition:
+        scale            200ms cubic-bezier(1, 0.22, 0, 0.85),
+        background-color 200ms cubic-bezier(1, 0.22, 0, 0.85),
+        transform        200ms ease;
+}
+
+/* :active = mientras se lo mantiene apretado.
+   La sombra inset da la sensacion de que el boton se hunde. */
+button:active {
+    box-shadow: inset 0 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ------------------------------------------------------------
+   @media (hover: hover)
+   ------------------------------------------------------------
+   Detecta si el dispositivo puede hacer hover de verdad (mouse)
+   o no (pantalla tactil). En un celular no existe el "pasar por
+   encima": el navegador simula el hover con el primer toque y
+   queda pegado hasta que tocas otra cosa. Encerrando los hover
+   en este media query evitamos ese efecto raro en el telefono.
+   ------------------------------------------------------------ */
+@media (hover: hover) {
+    button:hover {
+        transform: translateY(-5px);   /* lo sube 5px */
+        scale: 1.5;                    /* lo agranda al 150% */
+        background-color: aqua;
+        transition-duration: 100ms;    /* entra mas rapido de lo que sale */
+    }
+}
+
+
+/* ------------------------------------------------------------
+   @media (prefers-reduced-motion: reduce)   [ACCESIBILIDAD]
+   ------------------------------------------------------------
+   Lee la configuracion del sistema operativo del usuario.
+   Hay gente a la que las animaciones le producen mareo o
+   malestar (trastornos vestibulares) y activa esta opcion.
+   Cuando esta activada, apagamos practicamente todo poniendo
+   duraciones de 0.01ms (no 0, porque algunos navegadores no
+   disparan el evento "termino la animacion" si es exactamente 0).
+
+   El selector *, *::before, *::after alcanza a TODOS los
+   elementos y sus pseudoelementos. Este es de los pocos casos
+   donde !important esta bien usado: queremos ganarle si o si a
+   cualquier otra regla.
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* ------------------------------------------------------------
+   PATRON: SOMBRA QUE APARECE SIN "SALTOS"
+   ------------------------------------------------------------
+   Animar box-shadow directamente es caro para el navegador:
+   tiene que volver a dibujar la sombra en cada cuadro y la
+   animacion se ve trabada.
+
+   La solucion profesional: se ponen DOS sombras. La chica en
+   el elemento y la grande en un ::after invisible encima. En
+   el hover solo animamos la OPACIDAD del ::after. opacity y
+   transform son las dos propiedades que el navegador puede
+   animar en la placa de video, asi que van siempre fluidas.
+   ------------------------------------------------------------ */
+.card {
+    position: relative;   /* punto de referencia para el ::after absolute */
+    border-radius: 12px;
+    box-shadow:
+        0 1px 2px rgb(0 0 0 / .06),
+        0 1px 3px rgb(0 0 0 / .10);
+    transition: transform 200ms ease-out;
+}
+
+.card::after {
+    content: "";              /* obligatorio, aunque este vacio */
+    position: absolute;
+    inset: 0;                 /* atajo de top:0; right:0; bottom:0; left:0
+                                 => cubre exactamente al padre */
+    border-radius: inherit;   /* hereda el redondeo; si no, la sombra queda cuadrada */
+    box-shadow:
+        0  4px  8px rgb(0 0 0 / .07),
+        0 12px 24px rgb(0 0 0 / .10);
+    opacity: 0;               /* arranca invisible */
+    transition: opacity 200ms ease-out;
+    pointer-events: none;     /* que esta capa no tape los clics del contenido */
+}
+
+.card:hover        { transform: translateY(-3px); }  /* la tarjeta se levanta */
+.card:hover::after { opacity: 1; }                   /* y aparece la sombra grande */

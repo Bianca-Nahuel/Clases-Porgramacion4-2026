@@ -1,0 +1,161 @@
+/* ============================================================
+   CLASE 2 - DEMO 3: FLEXBOX
+   ============================================================
+   Las propiedades se dividen en dos grupos y conviene tenerlo
+   siempre presente:
+
+     VAN EN EL PADRE (el contenedor)
+       display: flex
+       flex-direction     -> row | column | row-reverse | column-reverse
+       flex-wrap          -> nowrap | wrap
+       justify-content    -> alineacion en el eje PRINCIPAL
+       align-items        -> alineacion en el eje TRANSVERSAL
+       gap                -> separacion entre items
+
+     VAN EN LOS HIJOS (los items)
+       flex-grow          -> cuanto crece si sobra lugar
+       flex-shrink        -> cuanto se achica si falta lugar
+       flex-basis         -> tamano de arranque
+       align-self         -> se saltea el align-items del padre
+       order              -> cambia el orden visual
+
+   LOS DOS EJES (esto es lo que mas cuesta al principio):
+     Si flex-direction es row (por defecto):
+        eje principal = horizontal  -> lo maneja justify-content
+        eje transversal = vertical  -> lo maneja align-items
+     Si flex-direction es column, los ejes SE DAN VUELTA:
+        justify-content pasa a mover en vertical
+        align-items pasa a mover en horizontal
+   ============================================================ */
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: system-ui, sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   EL CONTENEDOR FLEX
+   ------------------------------------------------------------ */
+#cajaPadre {
+    display: flex;              /* con esta sola linea los hijos ya se ponen en fila */
+
+    flex-direction: row;        /* row es el valor por defecto.
+                                   Proba cambiarlo por column y mira como
+                                   justify-content y align-items intercambian
+                                   sus efectos. */
+
+    flex-wrap: wrap;            /* si no entran, pasan al renglon de abajo.
+                                   Con nowrap (por defecto) se aprietan todos
+                                   en la misma linea hasta deformarse. */
+
+    justify-content: flex-start;/* eje principal (horizontal en row).
+                                   Opciones: flex-start | center | flex-end |
+                                   space-between | space-around | space-evenly */
+
+    align-items: baseline;      /* eje transversal (vertical en row).
+                                   Opciones: stretch (por defecto) | flex-start |
+                                   center | flex-end | baseline.
+                                   baseline alinea por la linea del TEXTO, util
+                                   cuando los items tienen tipografias distintas. */
+
+    gap: 10px;                  /* separacion entre items. Reemplaza el viejo
+                                   truco de poner margin en cada hijo. */
+
+    height: 300px;
+    background-color: gray;
+    padding: 10px;
+}
+
+
+/* ------------------------------------------------------------
+   LOS ITEMS
+   ------------------------------------------------------------ */
+#cajaPadre > div {
+    width: 100px;      /* con flex-grow activo, este ancho es solo una base */
+    height: 50px;
+    border: 2px black solid;
+
+    flex-grow: 1;      /* 0 = no crezcas (por defecto).
+                          1 = repartite el espacio sobrante en partes iguales.
+                          Si a un item le pones 2, se lleva el doble que el
+                          resto del espacio LIBRE (no el doble de ancho). */
+
+    flex-shrink: 0;    /* 1 = podes achicarte si falta lugar (por defecto).
+                          0 = no te achiques nunca. Combinado con wrap, esto
+                          es lo que fuerza a que bajen de renglon en vez de
+                          aplastarse. */
+
+    /* Atajo de las tres juntas (el que se usa en la practica):
+         flex: grow shrink basis;
+         flex: 1 1 0;      -> todos iguales, repartiendo todo
+         flex: 0 0 200px;  -> ancho fijo de 200px, ni crece ni se achica    */
+}
+
+#caja1 { background-color: red; }
+#caja2 { background-color: blue; }
+#caja3 { background-color: yellow; }
+#caja4 { background-color: green; }
+
+#caja5 {
+    background-color: aqua;
+    align-self: flex-end;   /* este item se saltea el align-items: baseline
+                               del padre y se va abajo de todo. */
+}
+
+
+/* ------------------------------------------------------------
+   CASO REAL 1: BARRA DE NAVEGACION
+   space-between empuja el primer item a la izquierda y el
+   ultimo a la derecha, repartiendo el hueco en el medio.
+   ------------------------------------------------------------ */
+.navbar {
+    display: flex;
+    justify-content: space-between;  /* logo a un extremo, menu al otro */
+    align-items: center;             /* los centra verticalmente entre si */
+    background-color: #222;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+.logo {
+    color: white;
+    font-weight: bold;
+}
+
+/* El <ul> tambien puede ser un contenedor flex: asi los <li>
+   quedan en fila horizontal en vez de uno abajo del otro. */
+.menu {
+    display: flex;
+    gap: 20px;
+    list-style: none;   /* saca las vinietas */
+    margin: 0;
+    padding: 0;         /* el <ul> trae un padding izquierdo por defecto */
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+}
+
+
+/* ------------------------------------------------------------
+   CASO REAL 2: EL CENTRADO PERFECTO
+   Las tres lineas que resolvieron el problema historico de
+   "como centro algo vertical y horizontalmente".
+   ------------------------------------------------------------ */
+.centrado {
+    display: flex;
+    justify-content: center;   /* centra en horizontal */
+    align-items: center;       /* centra en vertical */
+    height: 200px;
+    background-color: lavender;
+    margin-top: 20px;
+}
+
+.cosa {
+    background-color: white;
+    padding: 20px;
+    border: 2px solid black;
+}

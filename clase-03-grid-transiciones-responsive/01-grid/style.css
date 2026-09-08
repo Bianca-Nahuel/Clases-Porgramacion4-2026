@@ -1,0 +1,134 @@
+/* ============================================================
+   CLASE 3 - DEMO 1: CSS GRID
+   ============================================================
+   Igual que en flex, las propiedades se dividen en dos grupos:
+
+     VAN EN EL PADRE
+       display: grid
+       grid-template-columns / grid-template-rows
+       grid-template-areas
+       gap
+       justify-items / align-items      (todos los items a la vez)
+
+     VAN EN LOS HIJOS
+       grid-area        (nombre del area que ocupa)
+       grid-column / grid-row  (desde que linea hasta que linea)
+       justify-self / align-self
+
+   LA UNIDAD fr (fraction)
+     Es "una parte del espacio sobrante".
+       1fr 2fr 2fr  -> 5 partes: la primera columna se lleva 1/5
+                       y las otras dos 2/5 cada una.
+     Ventaja sobre los %: fr ya descuenta el gap, los % no.
+   ============================================================ */
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   METODO 1: GRID-TEMPLATE-AREAS (el mas legible)
+   ------------------------------------------------------------
+   Se dibuja la grilla con palabras. Cada string entre comillas
+   es una FILA y cada palabra adentro es una CELDA.
+   Repetir el mismo nombre en celdas contiguas hace que el area
+   se estire por todas ellas.
+   Para dejar una celda vacia se usa un punto: "."
+   ------------------------------------------------------------ */
+#grid {
+    display: grid;
+
+    /* 3 columnas: la primera mide la mitad que las otras dos */
+    grid-template-columns: 1fr 2fr 2fr;
+
+    /* 4 filas: header y footer finitos, las dos del medio grandes */
+    grid-template-rows: 1fr 5fr 5fr 1fr;
+
+    /* El "dibujo" del layout. Ojo con la alineacion:
+       cada linea tiene que tener la misma cantidad de palabras
+       que columnas declaradas arriba (3), y la cantidad de
+       lineas tiene que coincidir con las filas (4). */
+    grid-template-areas:
+        "header  header    header"
+        "aside   section1  section1"
+        "aside   section2  section3"
+        "footer  footer    footer";
+
+    /* gap: primero el espacio entre FILAS, despues entre COLUMNAS.
+       Si pones un solo valor, se usa para los dos. */
+    gap: 10px 20px;
+
+    height: 100vh;   /* 100vh = 100% del alto de la ventana */
+    background-color: lightgray;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Cada hijo se "sienta" en su area diciendo su nombre.
+   El nombre es el mismo que pusimos en grid-template-areas. */
+#grid header   { grid-area: header;   background-color: aqua; }
+#grid aside    { grid-area: aside;    background-color: greenyellow; }
+#grid #section1{ grid-area: section1; background-color: cornflowerblue; }
+#grid #section2{ grid-area: section2; background-color: salmon; }
+#grid #section3{ grid-area: section3; background-color: khaki; }
+#grid footer   { grid-area: footer;   background-color: #333; color: white; }
+
+
+/* ------------------------------------------------------------
+   METODO 2: POR NUMERO DE LINEA
+   ------------------------------------------------------------
+   Grid numera las LINEAS (no las columnas). En una grilla de
+   3 columnas hay 4 lineas verticales:
+
+       1     2     3     4
+       |-----|-----|-----|
+       | col | col | col |
+
+   grid-column: 1 / 3;  -> desde la linea 1 hasta la 3 (ocupa 2 columnas)
+   grid-column: 1 / -1; -> de la primera a la ultima (util para el header)
+   grid-column: span 2; -> ocupa 2 columnas desde donde caiga
+   ------------------------------------------------------------ */
+#gridLineas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* repeat(3, 1fr) = 1fr 1fr 1fr */
+    grid-auto-rows: 80px;                   /* alto de las filas que se creen solas */
+    gap: 10px;
+    margin: 20px;
+}
+
+.item {
+    background-color: cadetblue;
+    color: white;
+    display: grid;
+    place-items: center;   /* atajo de justify-items + align-items: centra el contenido */
+}
+
+.a { grid-column: 1 / -1; }            /* ocupa toda la fila */
+.b { grid-column: 1 / 3; grid-row: 2; }/* de la linea 1 a la 3 = 2 columnas */
+.c { grid-column: 3;     grid-row: 2; }
+.d { grid-column: 1 / -1; }
+
+
+/* ------------------------------------------------------------
+   GRID ANIDADO
+   Un item de un grid puede ser, a su vez, otro grid.
+   Aca la tarjeta arma una grilla de 2 columnas x 2 filas.
+   ------------------------------------------------------------ */
+.grande {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
+    width: 400px;
+    margin: 20px;
+}
+
+.grande div {
+    border: 2px black solid;
+    background-color: aquamarine;
+    height: 100px;
+    display: grid;
+    place-items: center;
+}

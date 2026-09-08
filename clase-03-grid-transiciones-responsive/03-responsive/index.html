@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CLASE 3 - DEMO 3: DISENO RESPONSIVE
+  ============================================================
+  Cuatro herramientas, de menos a mas moderna:
+
+    1. Unidades relativas + clamp()  -> se adapta sin media queries
+    2. @media                        -> cambia el layout segun el
+                                        ancho de la VENTANA
+    3. auto-fit + minmax()           -> grillas que se reacomodan solas
+    4. @container                    -> cambia segun el ancho del
+                                        CONTENEDOR, no de la ventana
+
+  Como probarlo: abri el DevTools (F12), activa el modo
+  dispositivo (Ctrl+Shift+M) y anda variando el ancho. Fijate
+  que pasa en 1024px y en 500px.
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Sin esta meta NADA de lo de abajo funciona en un celular real -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clase 3 - Responsive</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Lorem:</h1>
+  <p>
+    Este titulo y este parrafo usan clamp(): crecen y se achican con la pantalla
+    pero nunca se pasan del minimo ni del maximo que les pusimos.
+  </p>
+
+  <h2>1. Layout que se reordena con @media</h2>
+  <!-- El mismo grid de la demo 01, ahora con 3 versiones segun el ancho -->
+  <div id="grid">
+    <header>header</header>
+    <aside>aside</aside>
+    <section id="section1">section 1</section>
+    <section id="section2">section 2</section>
+    <section id="section3">section 3</section>
+    <footer>footer</footer>
+  </div>
+
+  <h2>2. Grilla que se reacomoda sola (sin ninguna media query)</h2>
+  <p>auto-fit + minmax: pone todas las columnas que entren de al menos 300px.</p>
+  <div id="gridResponsive">
+    <div>1</div><div>2</div><div>3</div><div>4</div>
+    <div>5</div><div>6</div><div>7</div><div>8</div>
+    <div>9</div><div>10</div><div>11</div><div>12</div>
+  </div>
+
+  <h2>3. Container queries</h2>
+  <p>
+    Las tarjetas de abajo cambian segun el ancho de <code>#wrap</code>, no de la ventana.
+    Cuando el contenedor supera los 500px, el texto se pone rojo.
+  </p>
+  <div id="wrap">
+    <div class="card box">Hola</div>
+    <div class="card">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem fuga quisquam laudantium in nulla consequuntur asperiores.</p>
+    </div>
+  </div>
+
+</body>
+</html>

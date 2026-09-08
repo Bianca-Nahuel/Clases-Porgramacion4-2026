@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CLASE 8 - DEMO 2: BUSCADOR DE POKEMON (fetch + DOM)
+  ============================================================
+  Es la integracion de todo lo visto hasta aca:
+    - clase 2 y 3: flex, position fixed, transform, transition
+    - clase 7:     fetch, async/await, manejo de errores
+    - clase 8:     eventos, FormData, crear nodos del DOM
+
+  La API es publica y no necesita clave: https://pokeapi.co
+  Abrilo con Live Server (necesita conexion a internet).
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+  <title>Clase 8 - Pokedex</title>
+</head>
+<body>
+
+  <!--
+    Boton hamburguesa. Los tres <span> vacios son las tres
+    rayitas: no tienen contenido, se ven porque el CSS les da
+    alto, ancho y fondo. Al abrir el menu, el CSS rota la
+    primera y la tercera para formar una X y esconde la del medio.
+  -->
+  <button id="display-button">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!--
+    El menu esta SIEMPRE en el DOM, corrido fuera de la pantalla
+    con transform: translateX(100%). Se muestra agregandole la
+    clase "visible". Se anima con transform porque es la
+    propiedad mas barata de animar (no obliga al navegador a
+    recalcular el layout).
+  -->
+  <nav id="menu-desplegable">
+    <a>Inicio</a>
+    <a>Fin</a>
+    <a>Contenido</a>
+    <a>ETC</a>
+  </nav>
+
+  <!--
+    Buscador. Es un <form> de verdad (y no un input suelto con
+    un boton) para que funcione el Enter y para poder usar
+    FormData en el JS.
+    El name del input es el que aparece como clave en el FormData.
+  -->
+  <form id="buscador">
+    <input type="text" name="Entrada" placeholder="Escribe el nombre de tu pokemon">
+    <button type="submit">BUSCAR</button>
+  </form>
+
+  <!-- Lista vacia: el JS le va agregando un <li> por pokemon -->
+  <ul id="pokemones"></ul>
+
+</body>
+</html>

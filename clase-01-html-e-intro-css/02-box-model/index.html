@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CLASE 1 - DEMO 2: INTRODUCCION A CSS + BOX MODEL
+  ============================================================
+  Objetivo:
+    1) Ver las 3 formas de aplicar CSS y por que usamos la hoja externa.
+    2) Entender el MODELO DE CAJA: todo elemento HTML es una caja
+       formada por contenido + padding + border + margin.
+
+  Abri este archivo con Live Server y despues abri el DevTools
+  (F12) -> solapa "Computed": ahi se ve el dibujito del box model.
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clase 1 - Box model</title>
+
+  <!--
+    FORMA 1 (la que usamos siempre): HOJA EXTERNA.
+    El CSS vive en su propio archivo y lo enlazamos aca.
+    Ventaja: un solo archivo de estilos para muchas paginas
+    y el HTML queda limpio.
+  -->
+  <link rel="stylesheet" href="style.css">
+
+  <!--
+    FORMA 2: CSS INTERNO (etiqueta <style> en el head).
+    Sirve para pruebas rapidas, pero no se reutiliza.
+  -->
+  <style>
+    /* Este estilo solo existe en ESTA pagina */
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>El modelo de caja</h1>
+
+  <!--
+    FORMA 3: CSS EN LINEA (atributo style).
+    Es la de MAYOR prioridad y la que peor se mantiene.
+    Evitarla salvo casos muy puntuales.
+
+    OJO: en el archivo original decia style="color" (sin valor).
+    Una declaracion sin valor es invalida y el navegador la
+    ignora en silencio. La forma correcta es propiedad: valor.
+  -->
+  <p style="color: darkgreen;">Este parrafo esta pintado con CSS en linea.</p>
+
+  <!--
+    Las tres cajas de abajo son <div> vacios. No tienen texto,
+    pero igual se ven porque el CSS les da alto, ancho, fondo
+    y borde. Esa es la idea del box model.
+  -->
+  <div></div>
+  <div></div>
+  <div></div>
+
+  <!--
+    Esta caja tiene la clase "explicada" ademas de ser un div,
+    asi mostramos que un elemento puede recibir estilos de
+    varias reglas a la vez y estas se suman.
+  -->
+  <div class="explicada">contenido</div>
+</body>
+</html>

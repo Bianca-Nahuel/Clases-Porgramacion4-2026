@@ -1,0 +1,32 @@
+{
+  "productos": [
+    {
+      "id": "2",
+      "nombre": "Monitor",
+      "categoria": "pantallas",
+      "precio": 180000,
+      "stock": 0
+    },
+    {
+      "id": "3",
+      "nombre": "Monitor2",
+      "categoria": "pantallas",
+      "precio": 280000,
+      "stock": 0
+    },
+    {
+      "id": "eea6",
+      "nombre": "Teclado Con Luces",
+      "categoria": "periferico",
+      "precio": 1200,
+      "stock": 1
+    }
+  ],
+  "alumnos": [
+    {
+      "id": "1",
+      "nombre": "Ana",
+      "legajo": "12345"
+    }
+  ]
+}

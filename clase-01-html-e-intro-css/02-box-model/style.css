@@ -1,0 +1,64 @@
+/* ============================================================
+   CLASE 1 - DEMO 2: BOX MODEL
+   ============================================================
+   Anatomia de una regla CSS:
+
+       div  {  height: 100px;  }
+       ^^^     ^^^^^^  ^^^^^
+     selector  propiedad valor
+     (a quien)  (que)   (cuanto)
+
+   Todo junto (propiedad: valor;) se llama DECLARACION y va
+   siempre terminada en punto y coma.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   SELECTOR DE ETIQUETA
+   "div" agarra a TODOS los <div> de la pagina.
+   ------------------------------------------------------------ */
+div {
+    /* --- 1. CONTENIDO: el tamano de la caja en si --- */
+    height: 100px;   /* alto fijo en pixeles */
+    width: 50%;      /* ancho RELATIVO: la mitad del ancho del padre.
+                        Si achicas la ventana, la caja se achica sola. */
+
+    /* --- 2. FONDO: se pinta debajo del contenido y del padding --- */
+    background-color: gray;
+
+    /* --- 3. BORDE: el marco de la caja ---
+       Atajo (shorthand) de: border-width border-color border-style.
+       Sin "solid" (el style) el borde NO se ve, aunque le pongas ancho. */
+    border: 5px black solid;
+
+    /* --- 4. MARGEN: aire POR FUERA del borde, separa de los vecinos --- */
+    margin-top: 20px;
+    margin-bottom: 30px;
+
+    /* OJO con el COLAPSO DE MARGENES: entre dos cajas apiladas
+       no se suman los margenes verticales, gana el mas grande.
+       Aca: 30px (bottom de una) contra 20px (top de la siguiente)
+       => la separacion real es 30px, NO 50px. */
+}
+
+
+/* ------------------------------------------------------------
+   La caja "explicada" agrega padding para que se vea la
+   diferencia entre PADDING y MARGIN, que es la confusion
+   numero uno cuando arrancas:
+
+     padding = aire ADENTRO  (empuja el contenido, agranda la caja pintada)
+     margin  = aire AFUERA   (separa esta caja de las otras, no se pinta)
+   ------------------------------------------------------------ */
+.explicada {
+    padding: 20px;          /* aire interno por los 4 lados */
+    background-color: teal;
+    color: white;
+
+    /* box-sizing: border-box hace que width y height incluyan
+       el padding y el borde. Sin esto, esta caja mediria
+       50% + 40px de padding + 10px de borde y se desbordaria.
+       Por eso casi todos los proyectos arrancan con:
+           *, *::before, *::after { box-sizing: border-box; }  */
+    box-sizing: border-box;
+}

@@ -1,0 +1,201 @@
+/* ============================================================
+   CLASE 2 - DEMO 2: POSITION Y Z-INDEX
+   ============================================================
+   position define respecto de QUE se ubica un elemento.
+   Las propiedades top / right / bottom / left solo funcionan
+   si position es distinto de static.
+
+     static   -> por defecto. Sigue el flujo normal del documento.
+                 Ignora top/left/z-index.
+     relative -> sigue en el flujo (su lugar queda reservado)
+                 pero se puede correr con top/left.
+                 Su otro uso, mas importante: ser el punto de
+                 referencia de un hijo absolute.
+     absolute -> SALE del flujo (los demas hacen de cuenta que
+                 no existe) y se ubica respecto del ancestro
+                 posicionado mas cercano.
+     fixed    -> sale del flujo y se ubica respecto de la
+                 VENTANA. No se mueve con el scroll.
+     sticky   -> hibrido: es relative hasta que llega al limite
+                 que le pusiste (top: 0) y ahi pasa a comportarse
+                 como fixed.
+   ============================================================ */
+
+/* El navegador trae un margen por defecto en el body.
+   Lo sacamos para que el header pegue contra los bordes. */
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   STICKY
+   ------------------------------------------------------------
+   Dos condiciones para que sticky funcione (los dos errores
+   tipicos cuando "no anda"):
+     1) tiene que tener un valor de anclaje: top: 0
+     2) el elemento padre NO puede tener overflow: hidden/auto,
+        y el sticky se despega cuando termina el padre.
+   ------------------------------------------------------------ */
+header {
+    position: sticky;
+    top: 0;                 /* se pega cuando llega al borde de arriba */
+    width: 100%;
+    background-color: cadetblue;
+    color: white;
+    padding: 15px;
+    box-sizing: border-box; /* para que el padding no lo haga mas ancho que 100% */
+    z-index: 100;           /* alto, asi queda por encima del contenido al scrollear */
+}
+
+main {
+    padding: 20px;
+}
+
+/* Estilo comun de las cajas de ejemplo */
+.caja {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px black solid;
+    background-color: lightgray;
+}
+
+.caja span {
+    display: block;
+    font-size: 12px;
+    color: dimgray;
+}
+
+
+/* STATIC: es el valor por defecto, no hace falta escribirlo.
+   Lo dejamos explicito solo para el ejemplo. Si le agregaras
+   top: 30px no pasaria absolutamente nada. */
+.static {
+    position: static;
+}
+
+/* RELATIVE: se corre 30px hacia la derecha y 10px hacia abajo
+   desde donde estaba. Importante: el hueco que dejo NO se
+   cierra, los elementos de abajo no suben. */
+.relative {
+    position: relative;
+    left: 30px;
+    top: 10px;
+    background-color: khaki;
+}
+
+/* El padre con relative define el sistema de coordenadas del hijo */
+.contenedor-relativo {
+    position: relative;
+    height: 150px;
+    border: 2px dashed gray;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* ABSOLUTE: se ubica en la esquina inferior derecha DEL PADRE
+   (no de la pagina), porque el padre tiene position: relative.
+   Si el padre fuera static, esta caja se iria a la esquina de
+   toda la pagina. */
+.absolute {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 120px;
+    background-color: coral;
+}
+
+/* FIXED: respecto de la ventana. Tipico boton flotante de
+   "volver arriba" o de WhatsApp. */
+.boton-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: mediumseagreen;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    text-decoration: none;
+    z-index: 50;
+}
+
+
+/* ------------------------------------------------------------
+   Z-INDEX
+   ------------------------------------------------------------
+   Controla el orden de apilado en el eje Z (quien tapa a quien).
+   DOS reglas que hay que saber si o si:
+
+     1) z-index SOLO funciona en elementos posicionados
+        (relative, absolute, fixed o sticky). En un elemento
+        static se ignora por completo.
+     2) Los z-index NO se comparan entre padres distintos:
+        se comparan dentro del mismo "contexto de apilado".
+        Un hijo con z-index: 9999 nunca le va a ganar a algo
+        que este por encima de su padre.
+
+   Sin z-index, gana el que este mas abajo en el HTML.
+   ------------------------------------------------------------ */
+.pila {
+    position: relative;
+    height: 160px;
+    margin-bottom: 20px;
+}
+
+.ficha {
+    position: absolute;   /* sin esto el z-index no haria nada */
+    width: 140px;
+    height: 100px;
+    padding: 10px;
+    border: 2px black solid;
+    color: white;
+}
+
+.ficha-a {
+    background-color: red;
+    z-index: 1;           /* el mas bajo: queda abajo de todo */
+    top: 0;
+    left: 0;
+}
+
+.ficha-b {
+    background-color: blue;
+    z-index: 3;           /* el mas alto: queda arriba de todo,
+                             aunque en el HTML no sea el ultimo */
+    top: 25px;
+    left: 60px;
+}
+
+.ficha-c {
+    background-color: green;
+    z-index: 2;           /* queda en el medio */
+    top: 50px;
+    left: 120px;
+}
+
+
+/* ------------------------------------------------------------
+   OVERFLOW: que hacer cuando el contenido no entra en la caja
+     visible -> (por defecto) se desborda y se ve por fuera
+     hidden  -> se corta lo que sobra
+     scroll  -> barra de scroll siempre visible
+     auto    -> barra de scroll solo si hace falta  <-- el mas usado
+   ------------------------------------------------------------ */
+.caja-overflow {
+    height: 100px;
+    width: 300px;
+    overflow: auto;
+    border: 2px black solid;
+    padding: 10px;
+    background-color: white;
+}
+
+.relleno {
+    height: 600px;
+    background-color: whitesmoke;
+    display: grid;
+    place-items: center;   /* centra el texto; lo vemos en la clase 3 */
+    color: gray;
+}

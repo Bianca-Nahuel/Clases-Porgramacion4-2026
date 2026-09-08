@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  INDICE NAVEGABLE DEL MATERIAL
+  ============================================================
+  Abri este archivo con Live Server y desde aca entras a todas
+  las demos que se ven en el navegador (clases 1, 2, 3 y 8).
+  Las clases 5, 6, 7 y 9 se corren por consola: mira el README
+  de cada una.
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programacion IV - Codigo de clase</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      max-width: 820px;
+      margin: 40px auto;
+      padding: 0 20px 80px;
+      line-height: 1.6;
+    }
+    h1 { margin-bottom: 4px; }
+    .sub { color: #666; margin-top: 0; }
+    h2 {
+      border-bottom: 2px solid currentColor;
+      border-color: color-mix(in srgb, currentColor 20%, transparent);
+      padding-bottom: 6px;
+      margin-top: 44px;
+    }
+    ol { padding-left: 22px; }
+    li { margin-bottom: 10px; }
+    .temas { color: #666; font-size: 0.9em; }
+    .consola {
+      background: color-mix(in srgb, currentColor 7%, transparent);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.92em;
+    }
+    code {
+      background: color-mix(in srgb, currentColor 10%, transparent);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    a { color: inherit; }
+  </style>
+</head>
+<body>
+  <h1>Programacion IV &mdash; Codigo de clase</h1>
+  <p class="sub">UTN &mdash; Facultad Regional Mar del Plata</p>
+  <p>
+    Todo lo que se escribio en clase, ordenado y comentado.
+    Cada carpeta tiene un <code>README.md</code> con los puntos clave y ejercicios:
+    <strong>empeza por ahi</strong>.
+  </p>
+
+  <h2>Clase 1 &mdash; HTML e introduccion a CSS</h2>
+  <ol>
+    <li>
+      <a href="clase-01-html-e-intro-css/01-estructura-html/index.html">Estructura HTML</a>
+      <div class="temas">doctype, head vs body, metas, encabezados, listas, tablas, enlaces, imagenes, div y span</div>
+    </li>
+    <li>
+      <a href="clase-01-html-e-intro-css/02-box-model/index.html">Box model</a>
+      <div class="temas">las 3 formas de aplicar CSS, anatomia de una regla, content / padding / border / margin, box-sizing</div>
+    </li>
+  </ol>
+
+  <h2>Clase 2 &mdash; Selectores, position y flexbox</h2>
+  <ol>
+    <li>
+      <a href="clase-02-selectores-position-flex/01-selectores/index.html">Selectores</a>
+      <div class="temas">clase / id / atributo, especificidad, combinadores, :nth-child, :not, ::before, ::marker, ::selection, !important</div>
+    </li>
+    <li>
+      <a href="clase-02-selectores-position-flex/02-position-y-zindex/index.html">Position y z-index</a>
+      <div class="temas">static, relative, absolute, fixed, sticky, contexto de apilado, overflow</div>
+    </li>
+    <li>
+      <a href="clase-02-selectores-position-flex/03-flexbox/index.html">Flexbox</a>
+      <div class="temas">direction, wrap, justify-content, align-items, gap, grow / shrink / basis, navbar y centrado</div>
+    </li>
+    <li>
+      <a href="clase-02-selectores-position-flex/04-borrador-en-vivo/index.html">Borrador en vivo</a>
+      <div class="temas">lo que se tipeo en el proyector, sin editar</div>
+    </li>
+  </ol>
+
+  <h2>Clase 3 &mdash; Grid, sombras, transiciones y responsive</h2>
+  <ol>
+    <li>
+      <a href="clase-03-grid-transiciones-responsive/01-grid/index.html">Grid</a>
+      <div class="temas">fr, template-columns / rows, template-areas, lineas y span, repeat, grid anidado</div>
+    </li>
+    <li>
+      <a href="clase-03-grid-transiciones-responsive/02-sombras-y-transiciones/index.html">Sombras y transiciones</a>
+      <div class="temas">box-shadow y sombras apiladas, text-shadow, transition, curvas, :hover / :active, prefers-reduced-motion</div>
+    </li>
+    <li>
+      <a href="clase-03-grid-transiciones-responsive/03-responsive/index.html">Responsive</a>
+      <div class="temas">variables, unidades, clamp / min / max, @media, auto-fit + minmax, container queries</div>
+    </li>
+    <li>
+      <a href="clase-03-grid-transiciones-responsive/04-borrador-en-vivo/index.html">Borrador en vivo</a>
+      <div class="temas">flex, grid, media queries, clamp y container queries, tal cual salio en clase</div>
+    </li>
+    <li>
+      <a href="clase-03-grid-transiciones-responsive/05-borrador-sombras/index.html">Borrador de sombras</a>
+      <div class="temas">sombras apiladas y la sombra en ::after animada con opacity</div>
+    </li>
+  </ol>
+
+  <h2>Clase 8 &mdash; DOM, eventos y formularios</h2>
+  <ol>
+    <li>
+      <a href="clase-08-dom-y-eventos/01-dom-eventos-formularios/index.html">DOM, eventos y formularios</a>
+      <div class="temas">getElementById, innerHTML, classList.toggle, addEventListener, submit, preventDefault, FormData</div>
+    </li>
+    <li>
+      <a href="clase-08-dom-y-eventos/02-pokedex/index.html">Buscador de Pokemon</a>
+      <div class="temas">integrador: fetch a una API publica, async/await, createElement, menu hamburguesa animado. Necesita internet</div>
+    </li>
+  </ol>
+
+  <h2>Clases que se corren por consola</h2>
+  <div class="consola">
+    <p>Estas no se abren en el navegador. Mira el README de cada carpeta:</p>
+    <ul>
+      <li><strong>Clases 5 y 6</strong> &mdash; fundamentos de JavaScript: <code>node archivo.js</code></li>
+      <li><strong>Clase 7</strong> &mdash; asincronismo y fetch: necesita levantar <code>json-server</code> primero</li>
+      <li><strong>Clase 9</strong> &mdash; TypeScript y Angular: <code>npm install</code> y <code>npm start</code></li>
+    </ul>
+  </div>
+</body>
+</html>

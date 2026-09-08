@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CLASE 1 - DEMO 1: ESTRUCTURA BASICA DE UN DOCUMENTO HTML
+  ============================================================
+  Objetivo: entender el "esqueleto" de toda pagina web y las
+  etiquetas mas comunes. Esta demo NO tiene CSS a proposito:
+  asi se ve el HTML "crudo", con los estilos por defecto del
+  navegador.
+
+  Regla mental: el HTML define QUE es cada cosa (un titulo,
+  una lista, una tabla). El CSS (demo 02) define COMO se ve.
+-->
+
+<!--
+  <!DOCTYPE html> le avisa al navegador que use HTML5.
+  Si no lo ponemos, el navegador entra en "modo raro"
+  (quirks mode) e interpreta el CSS de forma vieja.
+-->
+<html lang="es">
+<!--
+  lang="es" declara el idioma del contenido.
+  Sirve para el corrector ortografico, los lectores de
+  pantalla y el traductor automatico.
+-->
+
+<head>
+  <!--
+    El <head> es informacion PARA EL NAVEGADOR.
+    Nada de lo que va aca se dibuja en la pantalla.
+  -->
+
+  <!-- Codificacion de caracteres: sin esto los acentos y la n con virgulilla se rompen -->
+  <meta charset="UTF-8">
+
+  <!--
+    Viewport: le dice al celular "usa el ancho real de la
+    pantalla y no hagas zoom out". Sin esta linea el diseno
+    responsive de la clase 3 NO funciona en el telefono.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- El <title> es lo que se lee en la pestana del navegador y en Google -->
+  <title>Clase 1 - Estructura HTML</title>
+</head>
+
+<body>
+  <!-- El <body> es TODO lo que el usuario ve en la pantalla -->
+
+  <!--
+    ENCABEZADOS: van de <h1> a <h6>.
+    Se usan por JERARQUIA, no por tamano. Si algo tiene que
+    ser mas chico se achica con CSS, no bajando a <h4>.
+    Regla practica: un solo <h1> por pagina.
+  -->
+  <h1>Estructura basica de HTML</h1>
+
+  <!-- Parrafo de texto comun -->
+  <p>
+    Todo lo que ves en esta pagina son las etiquetas HTML con el estilo
+    <strong>por defecto del navegador</strong>. No hay ni una linea de CSS.
+  </p>
+
+  <h2>Imagenes</h2>
+  <!--
+    <img> es una etiqueta "vacia": no tiene etiqueta de cierre.
+      src : la ruta del archivo. "../../assets/..." significa
+            "subi dos carpetas y despues entra a assets".
+      alt : texto alternativo. Se muestra si la imagen no
+            carga y es lo que lee un lector de pantalla.
+            NO es opcional: es accesibilidad.
+      width: lo ponemos aca solo para que no ocupe toda la
+             pantalla; lo normal es controlarlo desde CSS.
+  -->
+  <img src="../../assets/HK_header.webp" alt="Header decorativo del juego Hollow Knight" width="400">
+
+  <h2>Enlaces</h2>
+  <!--
+    <a> = anchor (ancla). El atributo href dice a donde va.
+    Fijate que estos enlaces apuntan a archivos que NO existen:
+    los usamos en la clase 2 para practicar selectores de
+    atributo (por ejemplo: "pintame todos los links .pdf").
+  -->
+  <a href="pagina.html" class="rojo">link normal</a>
+  <a href="apunte.pdf">pdf</a>
+  <a href="ejercicios.pdf">pdf2</a>
+
+  <h2>Listas</h2>
+  <!--
+    <ul> = unordered list (lista con vinetas)
+    <ol> = ordered list (lista numerada)
+    <li> = list item. SIEMPRE va adentro de <ul> o <ol>.
+  -->
+  <ul>
+    <li>elemento 1</li>
+    <li>elemento 2</li>
+    <li>elemento 3</li>
+  </ul>
+
+  <h2>Tablas</h2>
+  <!--
+    Anatomia de una tabla:
+      <table> ... contenedor
+      <tr> ..... table row  (una fila)
+      <th> ..... table header (celda de encabezado, sale en negrita y centrada)
+      <td> ..... table data (celda comun)
+
+    Nota: las tablas son para DATOS tabulares (una planilla,
+    notas, precios). NUNCA se usan para maquetar el layout de
+    la pagina: para eso estan flex y grid (clases 2 y 3).
+  -->
+  <table>
+    <tr><th>Valor 1</th><th>Valor 2</th><th>Valor 3</th></tr>
+    <tr><td>1</td><td>10</td><td>100</td></tr>
+    <tr><td>2</td><td>20</td><td>200</td></tr>
+    <tr><td>3</td><td>30</td><td>300</td></tr>
+  </table>
+
+  <h2>Contenedores</h2>
+  <!--
+    <div> es una caja generica SIN significado. Es el "bloque"
+    que vamos a estilar en la demo 02.
+    <span> es lo mismo pero en linea (no corta el renglon).
+    Cuando el contenido SI tiene un significado conviene usar
+    etiquetas semanticas: <header>, <nav>, <main>, <section>,
+    <aside>, <footer>. Las vemos en la clase 2 y 3.
+  -->
+  <div>Soy un div: ocupo todo el ancho disponible.</div>
+  <p>Dentro de un parrafo puedo resaltar <span>una parte</span> con span.</p>
+</body>
+</html>

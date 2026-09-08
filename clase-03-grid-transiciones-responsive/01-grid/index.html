@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CLASE 3 - DEMO 1: CSS GRID
+  ============================================================
+  Diferencia con flexbox en una linea:
+    flex = UNA dimension (una fila o una columna)
+    grid = DOS dimensiones (filas y columnas al mismo tiempo)
+
+  No compiten: lo normal es usar grid para el layout general
+  de la pagina y flex adentro de cada pieza.
+
+  Esta demo arma el layout clasico de un sitio:
+  header arriba, aside a la izquierda, secciones al medio y
+  footer abajo, usando grid-template-areas (que se lee como
+  un dibujito).
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clase 3 - Grid</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!--
+    Contenedor grid. Sus hijos directos son los items:
+    header, aside, 3 sections y footer.
+    Fijate que en el HTML estan en un orden y en la pantalla
+    pueden aparecer en otro: grid te deja separar el orden del
+    codigo del orden visual.
+  -->
+  <div id="grid">
+    <header>header</header>
+    <aside>aside</aside>
+    <section id="section1">section 1</section>
+    <section id="section2">section 2</section>
+    <section id="section3">section 3</section>
+    <footer>footer</footer>
+  </div>
+
+  <h2>Grid por numero de linea</h2>
+  <p>El mismo layout pero ubicando cada item con <code>grid-column</code> y <code>grid-row</code> en vez de areas.</p>
+  <div id="gridLineas">
+    <div class="item a">A</div>
+    <div class="item b">B</div>
+    <div class="item c">C</div>
+    <div class="item d">D</div>
+  </div>
+
+  <h2>Grid anidado</h2>
+  <p>Una tarjeta que por fuera es un item, y por dentro es su propio grid de 2x2.</p>
+  <div class="card grande">
+    <div>hola</div>
+    <div>hola</div>
+    <div>hola</div>
+    <div>hola</div>
+  </div>
+
+</body>
+</html>

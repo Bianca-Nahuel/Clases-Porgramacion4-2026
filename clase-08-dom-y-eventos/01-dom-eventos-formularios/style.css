@@ -1,0 +1,43 @@
+/* ============================================================
+   CLASE 8 - DEMO 1: estilos
+   ============================================================
+   Regla de oro de esta clase: el JavaScript NO escribe estilos.
+   El JS agrega o saca una clase; el CSS decide que pasa.
+   Asi la animacion queda declarada en un solo lugar y se puede
+   cambiar sin tocar el codigo.
+   ============================================================ */
+
+
+/* La caja arranca invisible y desplazada arriba de todo.
+   visibility: hidden la oculta PERO le deja el lugar reservado
+   (a diferencia de display: none) y, a diferencia de este, si
+   se puede animar con transition. */
+#caja {
+    position: absolute;
+    top: 0px;
+    visibility: hidden;
+
+    /* Se declara la transicion en el estado BASE, no en el
+       estado final. Asi la animacion corre en los dos sentidos:
+       al agregar la clase y al sacarla. */
+    transition: color 1000ms linear, transform 1000ms linear;
+}
+
+/* Estado "encendido": el selector #caja.rojo pide que el
+   elemento tenga el id Y la clase al mismo tiempo. Es lo que
+   el JS prende y apaga con classList.toggle("rojo"). */
+#caja.rojo {
+    color: red;
+    transform: translateY(100px);
+    visibility: visible;
+}
+
+
+/* Los campos de un form son inline por defecto y quedan todos
+   en la misma linea. Con flex en columna se apilan prolijos. */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;            /* separacion uniforme entre campos */
+    max-width: 320px;
+}

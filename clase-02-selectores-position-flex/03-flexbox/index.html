@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CLASE 2 - DEMO 3: FLEXBOX
+  ============================================================
+  Flexbox acomoda elementos en UNA sola dimension: o en fila,
+  o en columna. (Cuando necesitas filas Y columnas al mismo
+  tiempo, eso es grid -> clase 3.)
+
+  Vocabulario:
+    - Contenedor flex: el padre, el que lleva display: flex.
+    - Items flex: los hijos DIRECTOS. Solo los hijos directos,
+      los nietos no se enteran de nada.
+
+  Como probarlo: achica y agranda la ventana para ver el wrap,
+  y anda cambiando los valores comentados en style.css.
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clase 2 - Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Flexbox</h1>
+
+  <h2>Contenedor con 5 items</h2>
+  <!-- Este es el contenedor flex. Sus 5 hijos son los items. -->
+  <div id="cajaPadre">
+    <div id="caja1">1</div>
+    <div id="caja2">2</div>
+    <div id="caja3">3</div>
+    <div id="caja4">4</div>
+    <div id="caja5">5</div>
+  </div>
+
+  <h2>El caso mas usado de todos: barra de navegacion</h2>
+  <!--
+    Logo a la izquierda y menu a la derecha. En 3 lineas de CSS.
+    Antes de flexbox esto se hacia con float y era un dolor.
+  -->
+  <nav class="navbar">
+    <span class="logo">MiSitio</span>
+    <ul class="menu">
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Productos</a></li>
+      <li><a href="#">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <h2>Centrado perfecto (vertical y horizontal)</h2>
+  <div class="centrado">
+    <div class="cosa">estoy centrado</div>
+  </div>
+</body>
+</html>

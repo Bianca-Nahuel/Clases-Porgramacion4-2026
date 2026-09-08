@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CLASE 8 - DEMO 1: DOM, EVENTOS Y FORMULARIOS
+  ============================================================
+  Objetivo: que el HTML deje de ser una pagina estatica.
+  Desde JavaScript vamos a:
+    - buscar elementos
+    - escuchar eventos (click, submit)
+    - agregar y sacar clases para disparar animaciones CSS
+    - leer los datos de un formulario
+
+  Abrilo con Live Server y tene la consola (F12) abierta.
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+
+  <!--
+    defer: descarga el script en paralelo y lo ejecuta DESPUES
+    de que el HTML este parseado. Sin defer, el script correria
+    antes de que existan los elementos y getElementById
+    devolveria null.
+    La alternativa vieja era poner el <script> al final del body.
+  -->
+  <script src="script.js" defer></script>
+
+  <title>Clase 8 - DOM y eventos</title>
+</head>
+<body>
+  <h1>DOM, eventos y formularios</h1>
+
+  <!--
+    Esta seccion arranca invisible (visibility: hidden en el CSS).
+    El JS le pone y le saca la clase "rojo", y el CSS se encarga
+    de la transicion. Patron importante: el JS NO escribe estilos,
+    solo cambia clases. La apariencia siempre vive en el CSS.
+  -->
+  <section id="caja"></section>
+
+  <button id="button">CLICK</button>
+
+  <!--
+    El formulario no tiene action ni method: no queremos que el
+    navegador lo envie y recargue la pagina. Lo maneja el JS.
+  -->
+  <form id="formulario">
+
+    <!--
+      for del <label> tiene que apuntar al ID del input (no al name).
+      Asi, al hacer click en el texto, se enfoca el campo, y el
+      lector de pantalla sabe como se llama cada control.
+      En el archivo original faltaban los id y habia un for mal
+      cerrado (for=Nombre"), por eso no linkeaban.
+    -->
+    <label for="nombre">NOMBRE:</label>
+    <!-- name es la clave con la que el dato sale en el FormData -->
+    <input id="nombre" name="Nombre">
+
+    <label for="pass">CONTRASENA:</label>
+    <!-- type="password" oculta lo tipeado -->
+    <input id="pass" name="Pass" type="password">
+
+    <label for="edad">EDAD:</label>
+    <!-- type="number" muestra teclado numerico en el celular -->
+    <input id="edad" name="Edad" type="number">
+
+    <!--
+      RADIO BUTTONS: los que comparten el mismo name forman un
+      grupo y solo uno puede estar elegido.
+      checked marca cual arranca seleccionado.
+      El label envolviendo al input tambien sirve para asociarlos.
+    -->
+    <p>SI o NO?</p>
+    <label><input value="si" name="respuesta" type="radio" checked> si</label>
+    <label><input value="no" name="respuesta" type="radio"> no</label>
+
+    <label for="opciones">OPCIONES</label>
+    <select id="opciones" name="opciones">
+      <!-- lo que viaja es el value, no el texto que se ve -->
+      <option value="A">OPCION 1</option>
+      <option value="B">OPCION 2</option>
+      <option value="C">OPCION 3</option>
+    </select>
+
+    <!--
+      Dentro de un form, un boton sin type es submit por defecto.
+      type="reset" limpia todos los campos, sin JavaScript.
+    -->
+    <button type="submit">ENVIAR</button>
+    <button type="reset">Resetear</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CLASE 2 - DEMO 2: POSITION Y Z-INDEX
+  ============================================================
+  Objetivo: ver los 5 valores de position y como se apilan los
+  elementos cuando se superponen.
+
+  Como probarlo: hace scroll. El header se queda pegado arriba
+  (sticky) y el boton de abajo a la derecha no se mueve nunca
+  (fixed).
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clase 2 - Position y z-index</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!--
+    <header> es una etiqueta SEMANTICA: significa lo mismo que
+    un <div> para el navegador visualmente, pero le dice a los
+    lectores de pantalla y a Google que esto es el encabezado.
+  -->
+  <header>Header sticky: hace scroll y mira como me quedo pegado arriba</header>
+
+  <main>
+    <h1>position</h1>
+
+    <!-- CAJA 1: static (el valor por defecto) -->
+    <div class="caja static">
+      static
+      <span>top / left no me afectan</span>
+    </div>
+
+    <!-- CAJA 2: relative, corrida respecto de su lugar original -->
+    <div class="caja relative">
+      relative
+      <span>me corri 30px pero mi lugar original sigue reservado</span>
+    </div>
+
+    <!--
+      El contenedor tiene position: relative para servir de
+      "punto de referencia" de la caja absolute que tiene adentro.
+      Este es el patron mas usado de todo position.
+    -->
+    <div class="contenedor-relativo">
+      contenedor con position: relative
+      <div class="caja absolute">absolute</div>
+    </div>
+
+    <h2>z-index</h2>
+    <p>Las tres cajas se pisan. El que tiene el z-index mas alto queda arriba.</p>
+
+    <div class="pila">
+      <div class="ficha ficha-a">z-index: 1</div>
+      <div class="ficha ficha-b">z-index: 3</div>
+      <div class="ficha ficha-c">z-index: 2</div>
+    </div>
+
+    <h2>overflow</h2>
+    <!-- Caja con mas contenido del que entra: se ve la barra de scroll interna -->
+    <div class="caja-overflow">
+      Esta caja tiene una altura fija y mucho texto adentro.
+      Con overflow: auto aparece la barra de scroll SOLO cuando hace falta.
+      Si pusieramos overflow: hidden, todo el sobrante se cortaria sin aviso.
+      Si pusieramos overflow: visible (el valor por defecto), el texto se
+      derramaria por fuera de la caja y se pisaria con lo de abajo.
+      Texto de relleno para que efectivamente sobre contenido y se note el scroll.
+    </div>
+
+    <!-- Espacio vacio solo para tener algo que scrollear -->
+    <div class="relleno">hace scroll...</div>
+  </main>
+
+  <!-- fixed: se ancla a la ventana, no al documento -->
+  <a href="#" class="boton-fixed">fixed</a>
+</body>
+</html>

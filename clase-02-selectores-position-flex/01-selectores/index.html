@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CLASE 2 - DEMO 1: SELECTORES, PSEUDOCLASES Y PSEUDOELEMENTOS
+  ============================================================
+  El HTML de esta demo es a proposito simple y repetitivo:
+  lo interesante esta TODO en style.css.
+
+  Las dos tablas son identicas. Lo unico que cambia es el id,
+  y vas a ver que se pintan distinto: eso demuestra que un
+  selector mal escrito cambia por completo el resultado.
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clase 2 - Selectores</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Selectores</h1>
+
+  <!--
+    ENLACES
+    El primero tiene class="rojo". En el CSS hay DOS reglas que
+    le aplican (.rojo y a.rojo) con colores distintos:
+    ese conflicto se resuelve por ESPECIFICIDAD.
+    Los dos ultimos terminan en .pdf: los agarramos con un
+    selector de atributo.
+  -->
+  <a href="pagina.html" class="rojo">link normal</a>
+  <a href="apunte.pdf">pdf</a>
+  <a href="ejercicios.pdf">pdf2</a>
+
+  <!-- LISTA: se usa para practicar ::marker y :not() -->
+  <ul>
+    <li>elemento 1</li>
+    <li>elemento 2</li>
+    <li>elemento 3</li>
+  </ul>
+
+  <!-- TABLA A: filas PARES pintadas (con el selector "mal" escrito) -->
+  <h2>Tabla con <code>#tablaPar :nth-child(even)</code></h2>
+  <table id="tablaPar">
+    <tr><th>Valor 1</th><th>Valor 2</th><th>Valor 3</th></tr>
+    <tr><td>1</td><td>10</td><td>100</td></tr>
+    <tr><td>2</td><td>20</td><td>200</td></tr>
+    <tr><td>3</td><td>30</td><td>300</td></tr>
+  </table>
+
+  <!-- TABLA B: filas IMPARES pintadas (con el selector preciso) -->
+  <h2>Tabla con <code>#tablaImpar tr:nth-child(odd)</code></h2>
+  <table id="tablaImpar">
+    <tr><th>Valor 1</th><th>Valor 2</th><th>Valor 3</th></tr>
+    <tr><td>1</td><td>10</td><td>100</td></tr>
+    <tr><td>2</td><td>20</td><td>200</td></tr>
+    <tr><td>3</td><td>30</td><td>300</td></tr>
+  </table>
+
+  <p>Segui esta oracion con el mouse y seleccionala para ver <code>::selection</code>.</p>
+</body>
+</html>

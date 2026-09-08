@@ -1,0 +1,217 @@
+/* ============================================================
+   CLASE 3 - DEMO 3: DISENO RESPONSIVE
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   VARIABLES CSS (custom properties)
+   ------------------------------------------------------------
+   Se declaran con dos guiones y se usan con var().
+   :root es el elemento <html>: al declararlas ahi quedan
+   disponibles en TODO el documento (se heredan hacia abajo).
+   Ventaja: si manana cambia el tamano del titulo, lo tocas en
+   un solo lugar y se actualiza en toda la pagina.
+
+   UNIDADES QUE APARECEN ACA:
+     px   -> absoluta, siempre mide lo mismo
+     rem  -> relativa al tamano base del navegador (16px por
+             defecto). Si el usuario agranda la letra por
+             accesibilidad, los rem lo acompanan; los px no.
+     em   -> relativa al tamano del PADRE (se va acumulando,
+             cuidado con los anidados)
+     %    -> relativa al tamano del padre
+     vw   -> 1% del ancho de la ventana (viewport width)
+     vh   -> 1% del alto de la ventana
+   ------------------------------------------------------------ */
+:root {
+    /* clamp(MINIMO, IDEAL, MAXIMO)
+       El navegador usa el valor ideal, pero nunca baja del
+       minimo ni sube del maximo. Es un "responsive fluido":
+       resuelve la tipografia sin escribir una sola media query.
+
+         2rem  -> nunca mas chico que 32px
+         12vw  -> crece con el ancho de la pantalla
+         4rem  -> nunca mas grande que 64px                    */
+    --h1: clamp(2rem, 12vw, 4rem);
+    --text: clamp(1rem, 6vw, 2rem);
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: system-ui, sans-serif;
+}
+
+/* Uso de las variables con var() */
+h1 { font-size: var(--h1); }
+p  { font-size: var(--text); }
+
+
+/* ------------------------------------------------------------
+   1. @MEDIA QUERIES
+   ------------------------------------------------------------
+   Un @media es un "si el ancho de la ventana cumple tal
+   condicion, aplica estas reglas".
+
+     max-width: 1024px  -> de 1024px para ABAJO (desktop first)
+     min-width: 1024px  -> de 1024px para ARRIBA (mobile first)
+
+   Los dos enfoques:
+     DESKTOP FIRST: escribis el diseno grande y vas achicando
+       con max-width. Es lo que hacemos en esta demo.
+     MOBILE FIRST (lo mas recomendado hoy): escribis primero la
+       version celular, que es la mas simple, y vas AGREGANDO
+       con min-width. Sale mas liviano y obliga a priorizar el
+       contenido.
+
+   Y ojo con el ORDEN: los media queries van DESPUES de las
+   reglas normales. Como tienen la misma especificidad, si los
+   pones antes, la regla general los pisa.
+
+   Puntos de corte tipicos: 480px (celu), 768px (tablet),
+   1024px (notebook), 1280px (desktop). No son sagrados: lo
+   correcto es cortar donde TU diseno se empieza a ver feo.
+   ------------------------------------------------------------ */
+
+/* --- Version escritorio: 3 columnas --- */
+#grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    grid-template-rows: 1fr 5fr 5fr 1fr;
+    grid-template-areas:
+        "header  header    header"
+        "aside   section1  section1"
+        "aside   section2  section3"
+        "footer  footer    footer";
+    gap: 10px 20px;
+    height: 80vh;
+    background-color: lightgray;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* --- Tablet: pasamos a 2 columnas y las secciones se apilan --- */
+@media (max-width: 1024px) {
+    #grid {
+        grid-template-columns: 1fr 3fr;
+        /* repeat(3, 4fr) es lo mismo que escribir 4fr 4fr 4fr */
+        grid-template-rows: 1fr repeat(3, 4fr) 1fr;
+        grid-template-areas:
+            "header  header"
+            "aside   section1"
+            "aside   section2"
+            "aside   section3"
+            "footer  footer";
+    }
+}
+
+/* --- Celular: una sola columna, todo uno abajo del otro.
+       Fijate que NO tocamos el HTML: el mismo marcado sirve
+       para las tres versiones. Eso es lo lindo de grid-areas. --- */
+@media (max-width: 500px) {
+    #grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr repeat(4, 4fr) 1fr;
+        grid-template-areas:
+            "header"
+            "aside"
+            "section1"
+            "section2"
+            "section3"
+            "footer";
+    }
+}
+
+#grid header   { grid-area: header;   background-color: aqua; }
+#grid aside    { grid-area: aside;    background-color: greenyellow; }
+#grid #section1{ grid-area: section1; background-color: cornflowerblue; }
+#grid #section2{ grid-area: section2; background-color: salmon; }
+#grid #section3{ grid-area: section3; background-color: khaki; }
+#grid footer   { grid-area: footer;   background-color: #333; color: white; }
+
+
+/* ------------------------------------------------------------
+   2. GRILLA AUTO-RESPONSIVE (sin media queries)
+   ------------------------------------------------------------
+       repeat(auto-fit, minmax(300px, 1fr))
+
+   Se lee: "meti todas las columnas que entren; cada una mide
+   como minimo 300px y como maximo se reparte el sobrante".
+   El navegador calcula solo cuantas columnas caben: 4 en la
+   compu, 2 en la tablet, 1 en el celular. Cero media queries.
+
+   auto-fit vs auto-fill: cuando hay pocos items, auto-fit
+   estira los que hay para llenar la fila; auto-fill deja las
+   columnas vacias reservadas. En general se quiere auto-fit.
+
+   Este es EL patron para grillas de productos, galerias de
+   fotos, listados de tarjetas, etc.
+   ------------------------------------------------------------ */
+#gridResponsive {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 10px;
+    /* Nota: el archivo original tenia width: 100vw. Conviene
+       evitarlo porque 100vw incluye el ancho de la barra de
+       scroll y termina generando scroll horizontal. Con el
+       ancho automatico del bloque alcanza. */
+}
+
+#gridResponsive div {
+    border: 2px black solid;
+    background-color: aquamarine;
+    height: 100px;
+    display: grid;
+    place-items: center;
+}
+
+
+/* ------------------------------------------------------------
+   3. CONTAINER QUERIES (lo mas nuevo)
+   ------------------------------------------------------------
+   Problema que resuelven: un media query solo sabe el ancho de
+   la VENTANA. Pero una misma tarjeta puede estar en una barra
+   lateral angosta o en el contenido principal ancho, con la
+   ventana igual de grande en los dos casos. El media query no
+   los distingue; el container query si.
+
+   Se usa en dos pasos:
+     1) En el PADRE: container-type: inline-size (le decis
+        "sos un contenedor, medite") y opcionalmente
+        container-name para poder referirte a el.
+     2) En el CSS: @container nombre (condicion) { ... }
+
+   Regla clave: las reglas de adentro apuntan a los HIJOS del
+   contenedor, nunca al contenedor mismo.
+   ------------------------------------------------------------ */
+#wrap {
+    container-type: inline-size;  /* mide el ancho */
+    container-name: card;         /* nombre para referenciarlo */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* "Cuando el contenedor llamado card mida 500px o mas..." */
+@container card (min-width: 500px) {
+    .card {
+        color: red;
+    }
+}
+
+.card p { font-size: var(--text); }
+
+.box {
+    height: 100px;
+    /* min(a, b) devuelve el mas CHICO de los dos:
+       ocupa la mitad de la ventana, pero nunca mas de 500px.
+       Su hermano max(a, b) devuelve el mas grande.
+       Igual que clamp(), no necesitan media queries. */
+    width: min(50vw, 500px);
+    font-size: var(--text);
+    background-color: blanchedalmond;
+    display: grid;
+    place-items: center;
+}

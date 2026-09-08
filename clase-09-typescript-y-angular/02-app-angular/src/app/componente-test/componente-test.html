@@ -1,0 +1,34 @@
+
+<!-- Interpolacion: evalua una expresion de la clase y la inserta como texto -->
+<h1>{{obj.title}}</h1>
+
+<!-- Control de flujo: sintaxis nativa del template, no necesita imports.
+     Como num arranca en 0, al cargar se ve el @else; recien al hacer click aparece el numero -->
+@if(num != 0){
+    <p>NUMERO: {{num}}</p>
+}@else {
+     <p>Sin Valor</p>
+}
+
+<!-- [type]: property binding, la propiedad type del DOM toma el valor de la clase
+     [(ngModel)]: two-way binding, equivale a [ngModel]="texto" + (ngModelChange)="texto = $event"
+     Requiere FormsModule en los imports del componente -->
+<input [type]="type"  [(ngModel)]="texto">
+<!-- Se actualiza a medida que se escribe, sin ningun codigo de por medio -->
+<p>{{texto}}</p>
+<!-- Event binding: el evento click del DOM llama al metodo add() de la clase.-->
+<button (click)="add()"></button>
+
+<!-- @for repite el bloque por cada elemento. track es obligatorio: le dice a Angular
+         como identificar cada item para no rehacer el DOM entero.
+         $index es una variable implicita; si los datos tienen id, conviene usar ese -->
+<ul>
+    @for (letra of arr; track $index) {
+        <li>{{letra}}</li>
+    }
+    <!-- @empty se muestra cuando la coleccion no tiene elementos.
+         Como arr esta vacio y nada le agrega, este bloque se ve siempre -->
+    @empty {
+        <li>N/A</li>
+    }
+</ul>

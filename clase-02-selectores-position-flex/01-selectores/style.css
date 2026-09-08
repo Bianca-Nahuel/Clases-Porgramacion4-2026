@@ -1,0 +1,178 @@
+/* ============================================================
+   CLASE 2 - DEMO 1: SELECTORES
+   ============================================================
+   Indice de lo que hay en este archivo:
+     1. Tipos basicos de selector
+     2. Especificidad (quien le gana a quien)
+     3. Combinadores: espacio vs >
+     4. Pseudoclases estructurales: :nth-child, :first-child, :not
+     5. Pseudoelementos: ::before, ::marker, ::selection
+     6. !important y por que casi nunca conviene
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. TIPOS BASICOS DE SELECTOR
+   ------------------------------------------------------------
+     etiqueta    ->  a       { }   todos los <a>
+     .clase      ->  .rojo   { }   todo lo que tenga class="rojo"
+     #id         ->  #tablaPar { } el UNICO elemento con ese id
+     [atributo]  ->  a[href$=".pdf"] { }
+
+   Clase o id: la clase se puede repetir todas las veces que
+   quieras; el id tiene que ser unico en la pagina. Para
+   estilar conviene la clase, el id se reserva para JS o para
+   anclas.
+   ------------------------------------------------------------ */
+
+
+/* ------------------------------------------------------------
+   2. ESPECIFICIDAD
+   ------------------------------------------------------------
+   Cuando dos reglas chocan, NO gana la ultima que escribiste:
+   gana la mas ESPECIFICA. Se cuenta como un puntaje (a,b,c):
+
+       a = ids            (#algo)      -> vale 100
+       b = clases,        (.algo)      -> vale 10
+           pseudoclases,  (:hover)
+           atributos      ([href])
+       c = etiquetas,     (div)        -> vale 1
+           pseudoelementos(::before)
+
+   Aca abajo hay dos reglas para el mismo elemento:
+      .rojo     -> 0,1,0  = 10
+      a.rojo    -> 0,1,1  = 11   <-- GANA esta
+   Por eso el "link normal" se ve AZUL, no rojo, aunque la
+   clase se llame "rojo" y este escrita primero.
+   ------------------------------------------------------------ */
+.rojo {
+    color: red;      /* pierde */
+}
+
+a.rojo {
+    color: blue;     /* gana: mismo peso de clase + una etiqueta extra */
+}
+
+/* Selector de ATRIBUTO. Los operadores mas usados:
+     [href^="https"] -> empieza con  (^ = start)
+     [href$=".pdf"]  -> termina en   ($ = end)
+     [href*="unl"]   -> contiene     (* = contains)  */
+a[href$=".pdf"] {
+    color: crimson;
+    font-weight: bold;
+}
+
+
+/* ------------------------------------------------------------
+   5a. PSEUDOELEMENTO ::before
+   ------------------------------------------------------------
+   Un pseudoelemento crea contenido que NO existe en el HTML.
+   ::before lo inserta al principio del elemento, ::after al final.
+   Requisito: siempre necesita la propiedad content, aunque sea
+   content: "" (asi se usa en la clase 3 para las sombras).
+   ------------------------------------------------------------ */
+a::before {
+    content: "-> ";   /* la flechita que aparece antes de cada link */
+}
+
+
+/* ------------------------------------------------------------
+   3. COMBINADORES: EL ERROR CLASICO
+   ------------------------------------------------------------
+       A B   (espacio) -> B que este DENTRO de A, a cualquier
+                          profundidad (descendiente)
+       A > B            -> B que sea HIJO DIRECTO de A
+       A + B            -> el hermano inmediato siguiente
+       A ~ B            -> todos los hermanos siguientes
+
+   Compara estas dos reglas mirando las dos tablas en pantalla:
+   ------------------------------------------------------------ */
+
+/* Version A: "#tablaPar" espacio ":nth-child(even)" sin decir de
+   que etiqueta. Como no aclara la etiqueta, agarra CUALQUIER
+   descendiente que sea hijo par: las filas <tr> pares Y ADEMAS
+   las celdas <td> pares dentro de cada fila. Por eso el
+   resultado queda "a cuadros" y no en filas prolijas.
+   Es un ejemplo de selector demasiado suelto. */
+#tablaPar :nth-child(even) {
+    background-color: gray;
+}
+
+/* Version B: aca si aclaramos "tr". Solo agarra las FILAS
+   impares. Este es el famoso efecto cebra de las tablas y es
+   la forma correcta de escribirlo. */
+#tablaImpar tr:nth-child(odd) {
+    background-color: gray;
+}
+
+/* Recordatorio de :nth-child()
+     even      -> 2, 4, 6...
+     odd       -> 1, 3, 5...
+     3         -> exactamente el tercero
+     2n+1      -> formula: 1, 3, 5...
+     -n+3      -> los primeros 3                                  */
+
+
+/* Borde para las dos tablas.
+   border-collapse junta los bordes de las celdas en una sola
+   linea; sin el queda el borde doble y separado. */
+table {
+    border: 2px gray solid;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 6px 12px;
+    border: 1px solid lightgray;
+}
+
+
+/* ------------------------------------------------------------
+   4. :first-child + 6. !important
+   ------------------------------------------------------------
+   La coma separa DOS selectores distintos que comparten estilo:
+     tr:first-child    -> la primera fila (el encabezado)
+     tr > :first-child -> la primera celda de CADA fila
+   O sea: pinta la fila de arriba y la columna de la izquierda.
+
+   !important rompe todo el calculo de especificidad y gana si
+   o si. Aca hace falta porque las reglas de arriba (con id)
+   son mas especificas que esta. Es una senal de alarma: si
+   necesitas !important, casi siempre conviene reescribir el
+   selector en vez de forzarlo. Usalo como ultimo recurso.
+   ------------------------------------------------------------ */
+tr:first-child,
+tr > :first-child {
+    background-color: lightblue !important;
+}
+
+
+/* ------------------------------------------------------------
+   5b. MAS PSEUDOELEMENTOS
+   ------------------------------------------------------------ */
+
+/* ::marker estiliza la vinieta o el numero de un <li>.
+   Antes habia que hacer trucos con ::before; hoy se hace asi. */
+::marker {
+    color: red;
+}
+
+/* ::selection cambia el resaltado cuando el usuario selecciona
+   texto con el mouse. Detalle chico que se nota mucho. */
+::selection {
+    background-color: aqua;
+}
+
+
+/* ------------------------------------------------------------
+   4b. LA PSEUDOCLASE :not()
+   ------------------------------------------------------------
+   Se lee: "los hijos directos del <ul> que NO sean el primer <li>".
+   Es decir, pinta el elemento 2 y el 3, pero no el 1.
+   Sirve muchisimo para el clasico "todos menos el ultimo":
+       .item:not(:last-child) { border-bottom: 1px solid; }
+   ------------------------------------------------------------ */
+ul > :not(li:first-child) {
+    color: crimson;
+}

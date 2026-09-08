@@ -1,0 +1,58 @@
+div{
+    height: 100px;
+    width: 50%;
+    background-color: gray;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border: 5px black solid;
+}
+
+
+.rojo{
+    color: red;
+}
+
+a.rojo{
+    color: blue;
+}
+
+
+
+a::before{
+    content: "->";
+}
+
+table{
+    border: 2px gray solid;
+}
+
+#tablaPar :nth-child(even){
+    background-color: gray;
+}
+
+#tablaImpar tr:nth-child(odd){
+    background-color: gray;
+}
+
+
+tr:first-child, tr > :first-child{
+    background-color: lightblue !important;
+}
+
+::marker{
+  color: red;  
+}
+
+::selection{
+    background-color: aqua;
+}
+
+ul > :not(li:first-child){
+ color: crimson;
+}
+
+
+
+
+
+

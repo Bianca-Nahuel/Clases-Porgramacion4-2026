@@ -1,0 +1,120 @@
+/* ============================================================
+   CLASE 8 - DEMO 2: estilos del buscador de pokemon
+   ============================================================ */
+
+/* Reset minimo: el navegador le mete margin al body y a los
+   titulos por defecto. Lo sacamos para partir de cero. */
+* {
+    margin: 0;
+}
+
+
+/* ------------------------------------------------------------
+   BUSCADOR (flexbox, clase 2)
+   ------------------------------------------------------------ */
+#buscador {
+    display: flex;
+    align-items: center;        /* centrado vertical  (eje transversal) */
+    justify-content: center;    /* centrado horizontal (eje principal) */
+    gap: 2%;
+    height: 10vh;               /* 10% del alto de la ventana */
+}
+
+#buscador input {
+    width: 50%;
+}
+
+
+/* ------------------------------------------------------------
+   TARJETAS DE POKEMON
+   ------------------------------------------------------------ */
+
+/* Los <li> que crea el JS. Sin esto se veria la vinieta. */
+ul {
+    list-style: none;
+}
+
+/* Las imagenes de la API son grandes: las limitamos con
+   max-width / max-height para que respeten la proporcion. */
+.pokemon-card img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+
+/* ------------------------------------------------------------
+   BOTON HAMBURGUESA
+   ------------------------------------------------------------ */
+
+#display-button {
+    /* fixed: queda pegado a la ventana aunque scrollees */
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: 1;                 /* por encima del menu */
+
+    background-color: aquamarine;
+    width: 100px;
+    height: 100px;
+
+    /* Las tres rayas se apilan y se reparten el alto */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* Cada <span> es una raya. La transicion vive aca, en el estado
+   base, para que la animacion corra al abrir Y al cerrar. */
+#display-button span {
+    background-color: black;
+    width: 70%;
+    height: 10px;
+    transition: transform 300ms ease;
+}
+
+/* Con la clase "visible" (la pone el JS) las rayas se
+   convierten en una X: la de arriba baja y rota 45 grados,
+   la del medio desaparece, la de abajo sube y rota -45. */
+#display-button.visible :nth-child(1) {
+    transform: translate(0, 17px) rotate(45deg);
+}
+
+#display-button.visible :nth-child(2) {
+    display: none;
+}
+
+#display-button.visible :nth-child(3) {
+    transform: translate(0, -17px) rotate(-45deg);
+}
+
+
+/* ------------------------------------------------------------
+   PANEL DESLIZABLE
+   ------------------------------------------------------------ */
+
+#menu-desplegable {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    height: 100vh;
+
+    font-size: 2.5rem;
+    background-color: aqua;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    justify-content: center;
+
+    /* Estado cerrado: corrido 100% de SU PROPIO ancho hacia la
+       derecha, o sea justo afuera de la pantalla. Sigue en el
+       DOM, solo que no se ve. */
+    transform: translateX(100%);
+    transition: transform 300ms ease;
+}
+
+/* Estado abierto: vuelve a su posicion natural */
+#menu-desplegable.visible {
+    transform: translate(0);
+}

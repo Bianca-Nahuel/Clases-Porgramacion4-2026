@@ -1,0 +1,212 @@
+:root{
+    --h1: clamp(2rem,12vw,4rem);
+    --text: clamp(1rem,6vw,2rem)
+}
+
+
+body{
+    margin: 0;
+}
+
+header{
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: cadetblue;
+}
+
+
+
+#cajaPadre div{
+    width: 100px;
+    height: 50px;
+    flex-shrink: 0;
+    flex-grow: 1;
+    border: 2px black solid;
+}
+
+#cajaPadre{
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: baseline;
+     background-color: gray;
+     margin-top: 50px;
+     z-index: 200;
+     height: 500px;
+}
+
+#caja1{
+    background-color: red;  
+    z-index: 10;
+    overflow: auto;
+}
+
+
+#caja2{
+    position: relative;
+    background-color: blue; 
+}
+
+#caja3{
+    z-index: 2;
+    position: relative;
+    background-color: yellow;
+}
+
+
+#caja4{
+    background-color: green;
+}
+
+
+#caja5{
+    background-color: aqua;
+}
+
+
+#grid{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    grid-template-rows: 1fr 5fr 5fr 1fr;
+    grid-template-areas: 
+    "header header header"
+    "aside section1 section1"
+    "aside section2 section3"
+    "footer footer footer";
+
+    gap: 10px 20px;
+    height: 200vh;
+    background-color: lightgray;
+}
+
+
+@media (max-width: 1024px) {
+     #grid{
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: 1fr repeat(3,4fr) 1fr;
+        grid-template-areas: 
+        "header header"
+        "aside section1"
+        "aside section2"
+        "aside section3"
+        "footer footer";
+    }
+    
+}
+
+@media (max-width: 500px) {
+    #grid{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr repeat(4,4fr) 1fr;
+        grid-template-areas: 
+        "header"
+        "aside"
+        "section1"
+        "section2"
+        "section3"
+        "footer";
+    }
+    
+}
+
+#grid header{
+    background-color: aqua;
+    grid-area: header;
+}
+
+#grid aside{
+    background-color: greenyellow;
+    grid-area: aside;
+    margin-left: 20px;
+}
+
+#grid #section1{
+    background-color: blue;
+    grid-area: section1;
+}
+
+
+#grid #section2{
+    background-color: red;
+    grid-area: section2;
+}
+
+
+
+#grid #section3{
+    background-color: yellow;
+    grid-area: section3;
+}
+
+#grid footer{
+    grid-area: footer;
+    background-color: black;
+}
+
+
+h1{
+    font-size: var(--h1);
+}
+
+p{
+    font-size: var(--text);
+}
+
+.box{
+    height: 100px;
+    width: min(50vw,500px);
+    font-size: var(--text);
+    color: black;
+    background-color: blanchedalmond;
+    margin: 15px;
+}
+
+.grande{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.grande div{
+    border: 2px black solid;
+    background-color: aquamarine;
+    height: 100px;
+    width: min(30vw,500px);
+}
+
+.card p{
+    font-size: var(--text);
+}
+
+#wrap{
+    container-type: inline-size;
+    container-name: card;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+@container card (min-width:500px){
+    .card{
+        color: red;
+    }
+}
+
+#gridResponsive{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    width: 100vw;
+}
+
+#gridResponsive div{
+    border: 2px black solid;
+    background-color: aquamarine;
+    height: 100px;
+}
+
+
+
