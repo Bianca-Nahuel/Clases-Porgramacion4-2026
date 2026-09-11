@@ -1,0 +1,5 @@
+ 
+  @if(tarea().descripcion.trim()){
+    <div [class.completa]="tarea().estaCompletada" class="tareas"  (click)="onClick()" >{{tarea().descripcion}} | {{!tarea().estaCompletada? "pendiente" : "completa" }} </div>       
+}
+ 
