@@ -1,9 +1,12 @@
 
 
+
+<p> Cantidad Tareas: {{arr() | cantTareas}}</p>
 <app-field-search [(field)]="field" (enviar)="agregar()"></app-field-search>
+<app-field-search [(field)]="query" (enviar)="buscar()"></app-field-search>
 
 <div class="lista">   
-@for (t of arr(); track $index) {
+@for (t of arrFiltro(); track $index) {
    <app-card-tarea [tarea]="t"  (toggle)="tareaToggle(t, $event)"> </app-card-tarea>
 }@empty {
     <div>No hay tareas cargadas</div>
