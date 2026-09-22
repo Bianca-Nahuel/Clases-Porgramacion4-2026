@@ -1,0 +1,7 @@
+<app-buscador (buscar)="filtrar($event)"></app-buscador> 
+
+@if(listaProductos.hasValue()){
+    @for (producto of listaProductos.value(); track $index) {
+    <a [routerLink]="['/productos',producto.id]" [queryParams]="{nombre:'hola'}"><app-tarjeta-producto [producto]="producto"></app-tarjeta-producto></a>
+}
+}

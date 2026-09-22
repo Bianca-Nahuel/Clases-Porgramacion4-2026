@@ -1,0 +1,7 @@
+@if(producto.hasValue()){
+    <p>{{producto.value().nombre}} - {{producto.value().stock}}</p>
+    <button (click)="comprar()" [disabled]="producto.value().stock == 0">Comprar</button>
+}@else {
+    <p>prodcuto no encontrado</p>
+}
+
