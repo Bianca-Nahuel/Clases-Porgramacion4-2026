@@ -1,0 +1,74 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Teclado mecánico",
+      "descripcion": "Switches marrones, retroiluminación blanca, formato 87 teclas.",
+      "precio": 78000,
+      "stock": 10
+    },
+    {
+      "id": 2,
+      "nombre": "Monitor 27 pulgadas",
+      "descripcion": "Panel IPS, 2560x1440, 165 Hz, entrada HDMI y DisplayPort.",
+      "precio": 385000,
+      "stock": 0
+    },
+    {
+      "id": 3,
+      "nombre": "Mouse inalámbrico",
+      "descripcion": "Sensor óptico de 16000 DPI, seis botones, batería recargable.",
+      "precio": 42000,
+      "stock": 0
+    },
+    {
+      "id": 4,
+      "nombre": "Auriculares",
+      "descripcion": "Circumaurales cerrados, micrófono desmontable, cable de 2 m.",
+      "precio": 95000,
+      "stock": 3
+    },
+    {
+      "id": 5,
+      "nombre": "Webcam HD",
+      "descripcion": "Resolución 1080p a 30 cuadros por segundo, enfoque automático.",
+      "precio": 61000,
+      "stock": 0
+    },
+    {
+      "id": 6,
+      "nombre": "Disco SSD 1 TB",
+      "descripcion": "NVMe M.2, lectura secuencial de hasta 3500 MB/s.",
+      "precio": 134000,
+      "stock": 21
+    },
+    {
+      "id": 7,
+      "nombre": "Memoria RAM 16 GB",
+      "descripcion": "DDR4 3200 MHz, disipador de aluminio, kit de dos módulos.",
+      "precio": 88000,
+      "stock": 0
+    },
+    {
+      "id": 8,
+      "nombre": "Placa de video",
+      "descripcion": "8 GB GDDR6, triple ventilador, conector de ocho pines.",
+      "precio": 720000,
+      "stock": 0
+    },
+    {
+      "id": 9,
+      "nombre": "Silla ergonómica",
+      "descripcion": "Respaldo de malla, apoyabrazos regulables, base de aluminio.",
+      "precio": 310000,
+      "stock": 2
+    },
+    {
+      "id": 10,
+      "nombre": "Micrófono USB",
+      "descripcion": "Condensador cardioide, trípode incluido, salida para auriculares.",
+      "precio": 115000,
+      "stock": 7
+    }
+  ]
+}
